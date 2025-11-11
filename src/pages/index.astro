@@ -107,7 +107,7 @@ const stack = [
       <!-- About Section -->
       <section class="animate">
         <article>
-          <p>This site is mean to share my <b><i>thoughts</i></b> and <b><i>projects</i></b>.</p>
+          <p>This site is meant to share my <b><i>thoughts</i></b> and <b><i>projects</i></b>.</p>
           <p></p>
         </article>
       </section>
@@ -195,6 +195,7 @@ const stack = [
           </p>
           <div class="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
             {SOCIALS.map(social => (
+              <>
               <div class="col-span-1 flex items-center gap-1">
                 <span class="whitespace-nowrap truncate">
                   {social.NAME}
@@ -207,6 +208,7 @@ const stack = [
                   </span>
                 </a>
               </div>
+              </>
             ))}
         </div>
       </section>
