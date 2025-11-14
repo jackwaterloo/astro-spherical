@@ -7,6 +7,11 @@ export const SITE: Site = {
   AUTHOR: "Jack Waterloo",
 };
 
+// Profile
+export const PROFILE = {
+  LOCATION: "Chicago, IL",
+};
+
 // Blog Page
 export const BLOG: Page = {
   TITLE: "Blog",

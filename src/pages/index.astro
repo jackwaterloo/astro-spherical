@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard";
-import { SITE, SOCIALS } from "@consts";
+import { SITE, SOCIALS, PROFILE } from "@consts";
 import TwinklingStars from "@components/TwinklingStars.astro";
 import MeteorShower from "@components/MeteorShower.astro";
 
@@ -62,32 +62,73 @@ const projects = (await getCollection("projects"))
       </div>
     </div>
     <div class="animate absolute flex h-full w-full items-center justify-center">
-      <div class="relative flex h-full w-full items-center justify-center">
-        <div class="p-5 text-center">
-          <p class="animated text-lg font-semibold opacity-75 md:text-xl lg:text-2xl">
-            Hello, I am ...
+      <div class="relative flex h-full w-full items-center justify-center gap-5 p-5">
+        <div
+          class="relative h-32 w-32 overflow-hidden rounded-full border-4 border-black/10 bg-white p-4 shadow-lg dark:border-white/25 dark:bg-black"
+        >
+          <img src="/favicon.svg" alt="jackwaterloo" class="h-full w-full object-cover" />
+        </div>
+        <div class="space-y-1 text-left">
+          <p class="animated titlecase text-xl font-bold text-black dark:text-white">
+            {SITE.AUTHOR}
           </p>
-          <p
-            class="animated text-2xl font-bold uppercase text-black dark:text-white md:text-3xl lg:text-4xl"
-          >
-            Jack Waterloo
+          <p class="text-md flex items-center justify-start gap-2 opacity-60">
+            <svg
+              class="size-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            {PROFILE.LOCATION}
           </p>
-          <p class="animated text-sm opacity-75 md:text-base lg:text-lg">
+          <!-- <p class="animated text-md font-semibold lowercase opacity-75">
+            {PROFILE.TITLE}
+          </p> -->
+          <!-- <p class="animated text-sm opacity-75 md:text-base lg:text-lg">
             IT and Web Development Hobbiest
-          </p>
-          <div id="ctaButtons" class="animated mt-5 flex flex-wrap justify-center gap-4">
+          </p> -->
+          <!-- <div id="ctaButtons" class="animated mt-5 flex flex-wrap justify-start gap-4">
             <a
               href="/blog"
-              class="blend truncate rounded bg-black px-4 py-2 text-xs text-white hover:opacity-75 dark:bg-white dark:text-black md:text-sm lg:text-base"
+              class="blend truncate rounded bg-black px-4 py-2 text-xs text-white hover:opacity-75 dark:bg-white dark:text-black md:text-sm"
             >
               Read my blog
             </a>
             <a
               href="/projects"
-              class="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+              class="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm"
             >
               View my projects
             </a>
+          </div> -->
+          <div class="flex gap-2">
+            {
+              SOCIALS.map((SOCIAL) => (
+                <a
+                  href={SOCIAL.HREF}
+                  target="_blank"
+                  aria-label={`${SITE.TITLE} on ${SOCIAL.NAME}`}
+                  class="blend group size-10 items-center justify-center rounded-full border border-black/25 p-2 hover:bg-black/5 dark:border-white/25 dark:hover:bg-white/15"
+                >
+                  <svg class="blend size-full fill-current group-hover:fill-black group-hover:dark:fill-white">
+                    <use href={`/social.svg#${SOCIAL.ICON}`} />
+                  </svg>
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
