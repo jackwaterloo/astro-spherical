@@ -173,7 +173,7 @@ const projects = (await getCollection("projects"))
       </section>
 
       <!-- Project Preview Section -->
-      <section class="animate">
+      <section class="animate pb-5">
         <div class="space-y-4">
           <div class="flex justify-between">
             <p class="font-semibold text-black dark:text-white">Recent projects</p>
@@ -197,36 +197,6 @@ const projects = (await getCollection("projects"))
               ))
             }
           </ul>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section class="animate">
-        <div>
-          <p class="font-semibold text-black dark:text-white">Let's Connect</p>
-          <p>Reach out to me via email or on social media.</p>
-          <div class="mt-4 grid auto-cols-min grid-cols-4 gap-y-2">
-            {
-              SOCIALS.map((social) => (
-                <>
-                  <div class="col-span-1 flex items-center gap-1">
-                    <span class="truncate whitespace-nowrap">{social.NAME}</span>
-                  </div>
-                  <div class="col-span-3 truncate">
-                    <a
-                      href={social.HREF}
-                      target="_blank"
-                      class="blend group col-span-3 flex w-fit items-center gap-1 text-black underline decoration-black/25 decoration-[.5px] underline-offset-2 hover:decoration-black dark:text-white dark:decoration-white/50 dark:hover:decoration-white"
-                    >
-                      <span class="blend text-black/75 group-hover:text-black dark:text-white/75 group-hover:dark:text-white">
-                        {social.TEXT}
-                      </span>
-                    </a>
-                  </div>
-                </>
-              ))
-            }
-          </div>
         </div>
       </section>
     </div>
