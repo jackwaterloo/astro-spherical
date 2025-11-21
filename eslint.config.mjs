@@ -35,6 +35,21 @@ export default defineConfig([
     },
   },
 
+  // TypeScript and TSX files (Solid.js components)
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: "./tsconfig.json",
+        sourceType: "module",
+        ecmaVersion: "latest",
+        jsx: true,
+        jsxImportSource: "solid-js",
+      },
+    },
+  },
+
   // astro setup with a11y
   astro.configs.recommended,
   astro.configs["jsx-a11y-recommended"],
@@ -56,8 +71,31 @@ export default defineConfig([
     },
   },
 
+  // MJS config files (allow CommonJS requires and relax TypeScript rules)
+  {
+    files: ["*.config.mjs", "*.mjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off", // Allow require() in config files
+    },
+  },
+
+  // Browser scripts in public/js (relax strict rules)
+  {
+    files: ["public/js/**/*.js"],
+    rules: {
+      "@typescript-eslint/no-unused-expressions": "off", // Allow expressions like getComputedStyle() for side effects
+    },
+  },
+
   // Ignore patterns
   {
-    ignores: ["dist/**", "**/*.d.ts", ".github/"],
+    ignores: [
+      "dist/**",
+      "**/*.d.ts",
+      ".github/",
+      "**/*.css",
+      "src/styles/**/*.css",
+      "**/*.mdx", // MDX files have frontmatter that ESLint can't parse
+    ],
   },
 ]);
