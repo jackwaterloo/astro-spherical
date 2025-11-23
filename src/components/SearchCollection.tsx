@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { createEffect, createSignal, For, onMount } from "solid-js";
 import Fuse from "fuse.js";
-import ArrowCard from "@components/ArrowCard";
+import ContentPreview from "@components/ContentPreview";
 import { cn } from "@lib/utils";
 import SearchBar from "@components/SearchBar";
 
@@ -156,9 +156,7 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
           </div>
           <ul class="flex flex-col gap-3">
             {collection().map((entry) => (
-              <li>
-                <ArrowCard entry={entry} />
-              </li>
+              <ContentPreview entry={entry} detailed={true} />
             ))}
           </ul>
         </div>

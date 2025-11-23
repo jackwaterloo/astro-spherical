@@ -1,8 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
-import BlogPreview from "@components/BlogPreview.astro";
-import ArrowCard from "@components/ArrowCard";
+import ContentPreview from "@components/ContentPreview.astro";
 import { SITE, SOCIALS, PROFILE } from "@consts";
 import TwinklingStars from "@components/TwinklingStars.astro";
 import MeteorShower from "@components/MeteorShower.astro";
@@ -164,7 +163,7 @@ const projects = (await getCollection("projects"))
           <ul class="space-y-4">
             {
               posts.map((post) => (
-                <BlogPreview post={post} />
+                <ContentPreview entry={post} />
               ))
             }
           </ul>
@@ -190,9 +189,8 @@ const projects = (await getCollection("projects"))
           <ul class="space-y-4">
             {
               projects.map((project) => (
-                <li>
-                  <ArrowCard entry={project} />
-                </li>
+                  <ContentPreview entry={project} />
+                
               ))
             }
           </ul>

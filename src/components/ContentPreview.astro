@@ -3,14 +3,14 @@ import { cn, formatDate, readingTime } from "@lib/utils";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
-  post: CollectionEntry<"blog">;
+  entry: CollectionEntry<"blog"> | CollectionEntry<"projects">;
   detailed?: boolean;
   class?: string;
 };
 
-const { post, detailed = false, class: className } = Astro.props;
+const { entry, detailed = false, class: className } = Astro.props;
 
-const { slug, data, body } = post;
+const { slug, data, body } = entry;
 const readTime = readingTime(body);
 
 ---
@@ -27,7 +27,7 @@ const readTime = readingTime(body);
       "flex w-full flex-col transition-all",
       !detailed && "sm:flex-row sm:items-center",
     )}
-    href={`/blog/${slug}`}
+    href={`/${entry.collection}/${slug}`}
     data-astro-prefetch
   >
     <div class="blend min-w-[95px] py-1 text-sm uppercase sm:mr-4">
