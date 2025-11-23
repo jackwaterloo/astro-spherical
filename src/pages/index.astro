@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard";
+import BlogPreview from "@components/BlogPreview.astro";
 import { SITE, SOCIALS, PROFILE } from "@consts";
 import TwinklingStars from "@components/TwinklingStars.astro";
 import MeteorShower from "@components/MeteorShower.astro";
@@ -148,7 +149,7 @@ const projects = (await getCollection("projects"))
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
-            <p class="font-semibold text-black dark:text-white">Recent posts</p>
+            <p class="font-semibold text-black dark:text-white">Recent posts (ArrowCard)</p>
             <a
               href="/blog"
               class="blend group col-span-3 flex w-fit items-center gap-1 text-black underline decoration-black/25 decoration-[.5px] underline-offset-2 hover:decoration-black dark:text-white dark:decoration-white/50 dark:hover:decoration-white"
@@ -166,6 +167,38 @@ const projects = (await getCollection("projects"))
                 <li>
                   <ArrowCard entry={post} />
                 </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- BlogPreview Component Comparison -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-semibold text-black dark:text-white">Recent posts (BlogPreview - Compact)</p>
+          </div>
+          <ul class="space-y-4">
+            {
+              posts.map((post) => (
+                <BlogPreview post={post} />
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <!-- BlogPreview Detailed -->
+      <section class="animate">
+        <div class="space-y-4">
+          <div class="flex justify-between">
+            <p class="font-semibold text-black dark:text-white">Recent posts (BlogPreview - Detailed)</p>
+          </div>
+          <ul class="space-y-4">
+            {
+              posts.map((post) => (
+                <BlogPreview post={post} detailed={true} />
               ))
             }
           </ul>
