@@ -1,7 +1,7 @@
 import type { CollectionEntry } from "astro:content";
 import { createEffect, createSignal } from "solid-js";
 import Fuse from "fuse.js";
-import ArrowCard from "@components/ArrowCard";
+import ContentPreview from "@components/ContentPreview";
 import SearchBar from "@components/SearchBar";
 
 type Props = {
@@ -48,9 +48,7 @@ export default function Search({ data }: Props) {
           </div>
           <ul class="flex flex-col gap-3">
             {results().map((result) => (
-              <li>
-                <ArrowCard entry={result} pill={true} />
-              </li>
+              <ContentPreview entry={result} pill={true} detailed={true} />
             ))}
           </ul>
         </div>

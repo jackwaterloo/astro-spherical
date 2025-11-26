@@ -161,11 +161,7 @@ const projects = (await getCollection("projects"))
             </a>
           </div>
           <ul class="space-y-4">
-            {
-              posts.map((post) => (
-                <ContentPreview entry={post} />
-              ))
-            }
+            {posts.map((post) => <ContentPreview entry={post} />)}
           </ul>
         </div>
       </section>
@@ -187,12 +183,7 @@ const projects = (await getCollection("projects"))
             </a>
           </div>
           <ul class="space-y-4">
-            {
-              projects.map((project) => (
-                  <ContentPreview entry={project} />
-                
-              ))
-            }
+            {projects.map((project) => <ContentPreview entry={project} />)}
           </ul>
         </div>
       </section>

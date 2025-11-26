@@ -12,7 +12,6 @@ const { entry, detailed = false, class: className } = Astro.props;
 
 const { slug, data, body } = entry;
 const readTime = readingTime(body);
-
 ---
 
 <li
@@ -23,10 +22,7 @@ const readTime = readingTime(body);
   )}
 >
   <a
-    class={cn(
-      "flex w-full flex-col transition-all",
-      !detailed && "sm:flex-row sm:items-center",
-    )}
+    class={cn("flex w-full flex-col transition-all", !detailed && "sm:flex-row sm:items-center")}
     href={`/${entry.collection}/${slug}`}
     data-astro-prefetch
   >
@@ -67,9 +63,7 @@ const readTime = readingTime(body);
       {
         detailed && (
           <>
-            <p class="line-clamp-2 pt-1 text-sm sm:line-clamp-3">
-              {data.summary}
-            </p>
+            <p class="line-clamp-2 pt-1 text-sm sm:line-clamp-3">{data.summary}</p>
             <div class="flex items-center gap-2 py-1.5 text-sm italic leading-4 sm:py-3">
               <span>{readTime}</span>
             </div>
