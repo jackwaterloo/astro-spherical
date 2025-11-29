@@ -64,9 +64,41 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
   });
 
   return (
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+    <div class="flex flex-col gap-6 sm:flex-row">
+      {/* Posts */}
+      <div class="order-2 flex-1 sm:order-1">
+        <div class="flex flex-col">
+          {/* Info Bar */}
+          <div class="mb-2 flex flex-row justify-between">
+            <div class="text-sm uppercase">
+              SHOWING {collection().length} OF {data.length} {entry_name}
+            </div>
+            <button
+              onClick={toggleDescending}
+              class="flex flex-row gap-1 stroke-neutral-400 text-neutral-400 hover:stroke-neutral-600 hover:text-neutral-600 dark:stroke-neutral-500 dark:text-neutral-500 hover:dark:stroke-neutral-300 hover:dark:text-neutral-300"
+            >
+              <div class="text-sm uppercase">{descending() ? "DESCENDING" : "ASCENDING"}</div>
+              <svg class="left-2 top-[0.45rem] size-5">
+                <use
+                  href={`/ui.svg#sort-descending`}
+                  class={descending() ? "block" : "hidden"}
+                ></use>
+                <use
+                  href={`/ui.svg#sort-ascending`}
+                  class={descending() ? "hidden" : "block"}
+                ></use>
+              </svg>
+            </button>
+          </div>
+          <ul class="flex flex-col gap-3">
+            {collection().map((entry) => (
+              <ContentPreview entry={entry} detailed={true} />
+            ))}
+          </ul>
+        </div>
+      </div>
       {/* Control Panel*/}
-      <div class="col-span-3 sm:col-span-1">
+      <div class="order-1 w-full sm:order-2 sm:w-64">
         <div class="sticky top-24 mt-7">
           {/* Search Bar */}
           <SearchBar
@@ -89,10 +121,10 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
               </button>
             )}
           </div>
-          <ul class="flex flex-wrap gap-1.5 sm:flex-col">
+          <ul class="flex flex-wrap gap-1.5">
             <For each={tags}>
               {(tag) => (
-                <li class="sm:w-full">
+                <li>
                   <button
                     onClick={() => toggleTag(tag)}
                     class={cn(
@@ -126,38 +158,6 @@ export default function SearchCollection({ entry_name, data, tags }: Props) {
                 </li>
               )}
             </For>
-          </ul>
-        </div>
-      </div>
-      {/* Posts */}
-      <div class="col-span-3 sm:col-span-2">
-        <div class="flex flex-col">
-          {/* Info Bar */}
-          <div class="mb-2 flex flex-row justify-between">
-            <div class="text-sm uppercase">
-              SHOWING {collection().length} OF {data.length} {entry_name}
-            </div>
-            <button
-              onClick={toggleDescending}
-              class="flex flex-row gap-1 stroke-neutral-400 text-neutral-400 hover:stroke-neutral-600 hover:text-neutral-600 dark:stroke-neutral-500 dark:text-neutral-500 hover:dark:stroke-neutral-300 hover:dark:text-neutral-300"
-            >
-              <div class="text-sm uppercase">{descending() ? "DESCENDING" : "ASCENDING"}</div>
-              <svg class="left-2 top-[0.45rem] size-5">
-                <use
-                  href={`/ui.svg#sort-descending`}
-                  class={descending() ? "block" : "hidden"}
-                ></use>
-                <use
-                  href={`/ui.svg#sort-ascending`}
-                  class={descending() ? "hidden" : "block"}
-                ></use>
-              </svg>
-            </button>
-          </div>
-          <ul class="flex flex-col gap-3">
-            {collection().map((entry) => (
-              <ContentPreview entry={entry} detailed={true} />
-            ))}
           </ul>
         </div>
       </div>
