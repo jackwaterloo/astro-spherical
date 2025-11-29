@@ -76,6 +76,9 @@ export default function ContentPreview({
             <>
               <p class="line-clamp-2 pt-1 text-sm sm:line-clamp-3">{data.summary}</p>
               <div class="flex items-center gap-2 py-1.5 text-sm italic leading-4 sm:py-3">
+                <svg class="size-4 stroke-current">
+                  <use href="/ui.svg#book-open"></use>
+                </svg>
                 <span>{readTime}</span>
               </div>
             </>
