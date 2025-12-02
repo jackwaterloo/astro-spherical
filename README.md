@@ -1,8 +1,8 @@
-# Jack Waterloo - Personal Site
+# Astro Spherical
 
-My personal blog and portfolio website showcasing my projects, and thoughts.
+This is an astro template meant to display blog posts and projects.
 
-Built with [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) - a static, minimalist, lightweight, lightning fast theme built primarily with Astro, Tailwind and TypeScript, with a small amount of SolidJS for stateful components.
+Based off [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) - a static, minimalist, lightweight, lightning fast theme built primarily with Astro, Tailwind and TypeScript, with a small amount of SolidJS for stateful components.
 
 ## 📋 Features
 
