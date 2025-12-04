@@ -29,10 +29,19 @@ export default function ContentPreview({
         class={cn(
           "flex w-full flex-col transition-all",
           !detailed && "sm:flex-row sm:items-center",
+          detailed && data.heroImage && "max-md:pt-24",
         )}
         href={`/${entry.collection}/${slug}`}
         data-astro-prefetch
       >
+        {detailed && data.heroImage && (
+          <img
+            alt={data.heroImage.alt || data.title}
+            src={data.heroImage.src.src}
+            class="cover-image absolute end-0 top-0 z-0 h-2/3 w-full rounded-3xl object-cover opacity-50 transition-opacity duration-300 group-hover/card:opacity-70 md:h-full md:w-3/5"
+            loading="eager"
+          />
+        )}
         <div class="blend flex items-center gap-2 py-1 sm:mr-4">
           {pill && (
             <div class="rounded-full border border-black/15 px-2 py-0.5 text-sm capitalize dark:border-white/25">
@@ -74,7 +83,14 @@ export default function ContentPreview({
           </div>
           {detailed && (
             <>
-              <p class="line-clamp-2 pt-1 text-sm sm:line-clamp-3">{data.summary}</p>
+              <p
+                class={cn(
+                  "line-clamp-2 pt-1 text-sm sm:line-clamp-3",
+                  data.heroImage && "sm:me-24",
+                )}
+              >
+                {data.summary}
+              </p>
               <div class="flex items-center gap-2 py-1.5 text-sm italic leading-4 sm:py-3">
                 <svg class="size-4 stroke-current">
                   <use href="/ui.svg#book-open"></use>
