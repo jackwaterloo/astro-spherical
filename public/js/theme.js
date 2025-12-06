@@ -53,9 +53,15 @@ function preloadTheme() {
 window.onload = () => {
   function initializeThemeButtons() {
     const headerThemeButton = document.getElementById("header-theme-button");
-    const drawerThemeButton = document.getElementById("drawer-theme-button");
-    headerThemeButton?.addEventListener("click", changeTheme);
-    drawerThemeButton?.addEventListener("click", changeTheme);
+    const headerThemeButtonDesktop = document.getElementById("header-theme-button-desktop");
+    headerThemeButton?.addEventListener("click", (e) => {
+      changeTheme();
+      e.currentTarget.blur();
+    });
+    headerThemeButtonDesktop?.addEventListener("click", (e) => {
+      changeTheme();
+      e.currentTarget.blur();
+    });
   }
 
   document.addEventListener("astro:after-swap", initializeThemeButtons);
