@@ -1,0 +1,109 @@
+---
+title: "New Features"
+summary: "New features I have added to this theme"
+date: "Dec 10 2025"
+draft: false
+tags:
+  - Tutorial
+  - Astro
+  - Astro Sphere
+heroImage:
+  src: "./Screenshot 2025-12-03 at 7.37.55 PM.png"
+  alt: "example"
+---
+
+import { Image } from "astro:assets";
+import ContentImage from "@components/ContentImage.astro";
+import advertisingLists from "./advertising_lists_added-1024x215.jpg";
+import computerPhoto from "./271393489_7450028155022821_6941861915229160164_n-768x1024.jpg";
+
+**Things I need to do**
+
+- adjust heading spacing in markdown. h1 vs h2 vs h3 etc
+- footer: equidistant
+
+## Example Content
+
+I want to show what things would look like in a blog post form.
+
+I am trying to link to [the docs for Astro here](https://docs.astro.build/en/getting-started/)
+
+Example text to see how a paragraph is rendered. Below is a code block
+that shows how a codeblock is rendered. It looks pretty good imo.
+
+```javascript
+// example.js
+const jack = "jack";
+let mouse = "mx master 4";
+
+mouse = "lg g pro";
+```
+
+example file
+
+```bash
+sudo ls -la
+```
+
+## New ContentImage Component
+
+I've added a custom `ContentImage` component (`src/components/ContentImage.astro`) to make it easier to render images in blog posts with consistent styling. The component provides:
+
+- **Rounded corners** - Automatically applies rounded styling to images
+- **Captions** - Optional caption support displayed below images
+- **Flexible imports** - Works with both imported images and URL strings
+
+### Usage
+
+```jsx
+import ContentImage from "@components/ContentImage.astro";
+import myPhoto from "./my-photo.jpg";
+
+<ContentImage src={myPhoto} alt="Description of image" caption="Optional caption text" />;
+```
+
+For remote images, you'll need to specify width and height:
+
+```jsx
+<ContentImage
+  src="https://example.com/image.jpg"
+  alt="Remote image"
+  width={800}
+  height={600}
+  caption="Image from external source"
+/>
+```
+
+### ContentImage Example
+
+Here's the ContentImage component in action with an imported image and caption:
+
+<ContentImage
+  src={computerPhoto}
+  alt="Front face of computer"
+  caption="The front face of my computer"
+/>
+
+Here is a an image that is loaded from a URL:
+
+<ContentImage
+  src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  alt="Remote image"
+  width={800}
+  height={600}
+  caption="Image from external source"
+/>
+
+The component automatically handles styling, adds rounded corners, and displays the caption in a consistent format below the image.
+
+## Disabled Legal Pages
+
+The Terms and Privacy pages are currently disabled but preserved for future use. They've been disabled by:
+
+- Adding `.disabled` extension to page route: `src/pages/legal/[...slug].astro.disabled`
+- Adding `.disabled` extension to content: `privacy.md.disabled` and `terms.md.disabled`
+- Commenting out footer links in `src/components/Footer.astro`
+
+**To re-enable:** Remove the `.disabled` extension from all three files and uncomment the legal links section in the footer (see comment in file for instructions).
+
+This approach works for any page/route you want to temporarily disable while keeping the code intact.
