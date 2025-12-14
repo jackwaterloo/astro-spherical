@@ -14,6 +14,7 @@ export default defineConfig({
       themes: ["github-dark"],
       defaultProps: {
         wrap: false,
+        showLineNumbers: false,
       },
       plugins: [pluginLineNumbers()],
       frames: {
