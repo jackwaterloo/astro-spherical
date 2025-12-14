@@ -100,10 +100,10 @@ The component automatically handles styling, adds rounded corners, and displays 
 
 The Terms and Privacy pages are currently disabled but preserved for future use. They've been disabled by:
 
-- Adding `.disabled` extension to page route: `src/pages/legal/[...slug].astro.disabled`
-- Adding `.disabled` extension to content: `privacy.md.disabled` and `terms.md.disabled`
+- Adding `.disabled` extension to page route: `src/pages/legal/_[...slug].astro`
+- Using underscore prefix for content files (Astro convention): `_privacy.md` and `_terms.md`
 - Commenting out footer links in `src/components/Footer.astro`
 
-**To re-enable:** Remove the `.disabled` extension from all three files and uncomment the legal links section in the footer (see comment in file for instructions).
+**To re-enable:** Remove the underscore prefix from content files, and uncomment the legal links section in the footer (see comment in file for instructions).
 
-This approach works for any page/route you want to temporarily disable while keeping the code intact.
+**Note:** Following Astro documentation best practices, files prefixed with an underscore (`_`) are excluded from routing and builds, making this the standard approach for disabling pages.
