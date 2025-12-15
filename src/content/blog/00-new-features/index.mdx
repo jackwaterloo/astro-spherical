@@ -1,12 +1,13 @@
 ---
-title: "New Features"
-summary: "New features I have added to this theme"
-date: "Dec 10 2025"
+title: "New Features Added to Astro Spherical"
+summary: "Comprehensive guide to all custom features and enhancements added to the Astro Sphere theme"
+date: "Dec 14 2025"
 draft: false
 tags:
   - Tutorial
   - Astro
   - Astro Sphere
+  - Documentation
 heroImage:
   src: "./Screenshot 2025-12-03 at 7.37.55 PM.png"
   alt: "example"
@@ -17,40 +18,136 @@ import ContentImage from "@components/ContentImage.astro";
 import advertisingLists from "./advertising_lists_added-1024x215.jpg";
 import computerPhoto from "./271393489_7450028155022821_6941861915229160164_n-768x1024.jpg";
 
-New features are below.
+This document outlines all the custom features and enhancements added to the [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) theme. These modifications are designed for developers forking this template.
 
-## Example Content
+<div class="my-8 rounded-lg border border-black/15 bg-black/5 p-6 dark:border-white/20 dark:bg-white/5">
+  <h2 class="mb-4 mt-0 text-xl font-semibold text-black dark:text-white">Table of Contents</h2>
+  <ul class="list-disc space-y-2 pl-5">
+    <li>
+      <a href="#enhanced-code-blocks-with-expressive-code" class="hover:underline">
+        Enhanced Code Blocks with Expressive Code
+      </a>
+    </li>
+    <li>
+      <a href="#new-contentimage-component" class="hover:underline">
+        New ContentImage Component
+      </a>
+    </li>
+    <li>
+      <a href="#new-contentpreview-component" class="hover:underline">
+        New ContentPreview Component
+      </a>
+    </li>
+    <li>
+      <a href="#hero-images-for-blog-posts" class="hover:underline">
+        Hero Images for Blog Posts
+      </a>
+    </li>
+    <li>
+      <a href="#developer-experience-enhancements" class="hover:underline">
+        Developer Experience Enhancements
+      </a>
+    </li>
+    <li>
+      <a href="#typography-updates" class="hover:underline">
+        Typography Updates
+      </a>
+    </li>
+    <li>
+      <a href="#uiux-improvements" class="hover:underline">
+        UI/UX Improvements
+      </a>
+    </li>
+    <li>
+      <a href="#disabled-legal-pages" class="hover:underline">
+        Disabled Legal Pages
+      </a>
+    </li>
+    <li>
+      <a href="#configuration-changes" class="hover:underline">
+        Configuration Changes
+      </a>
+    </li>
+    <li>
+      <a href="#additional-resources" class="hover:underline">
+        Additional Resources
+      </a>
+    </li>
+  </ul>
+</div>
 
-I want to show what things would look like in a blog post form.
+## Enhanced Code Blocks with Expressive Code
 
-I am trying to link to [the docs for Astro here](https://docs.astro.build/en/getting-started/)
+Replaced the default code highlighting with [Astro Expressive Code](https://expressive-code.com/) for a significantly improved code display experience.
 
-Example text to see how a paragraph is rendered. Below is a code block
-that shows how a codeblock is rendered. It looks pretty good imo.
+### Features
+
+- **Syntax highlighting** with GitHub Dark theme
+- **Copy-to-clipboard button** on all code blocks
+- **Line numbers** (configurable per code block)
+- **Horizontal scroll support** for long code lines
+- **Filename extraction** from code comments
+- **Terminal frame support** with comment removal on copy
+
+### Configuration
+
+The integration is configured in `astro.config.mjs`:
 
 ```javascript
-// example.js
-const jack = "jack";
-let mouse = "mx master 4";
+//astro.config.mjs
+import expressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 
-mouse = "lg g pro";
+export default defineConfig({
+  integrations: [
+    expressiveCode({
+      themes: ["github-dark"],
+      defaultProps: {
+        wrap: false,
+        showLineNumbers: false,
+      },
+      plugins: [pluginLineNumbers()],
+      frames: {
+        showCopyToClipboardButton: true,
+        extractFileNameFromCode: true,
+        removeCommentsWhenCopyingTerminalFrames: true,
+      },
+      styleOverrides: {
+        borderRadius: "0.3rem",
+      },
+    }),
+    mdx(),
+    sitemap(),
+    // ... other integrations
+  ],
+});
 ```
 
-example file
+You can enable line numbers per code block by adding `showLineNumbers` to the fence:
 
-```bash
-sudo ls -la
+````markdown
+```javascript showLineNumbers
+function example() {
+  return "Line numbers enabled!";
+}
 ```
+````
 
 ## New ContentImage Component
 
-I've added a custom `ContentImage` component (`src/components/ContentImage.astro`) to make it easier to render images in blog posts with consistent styling. The component provides:
+Added a custom `ContentImage` component (`src/components/ContentImage.astro`) for rendering images in blog posts with consistent styling and optional captions.
 
-- **Rounded corners** - Automatically applies rounded styling to images
-- **Captions** - Optional caption support displayed below images
-- **Flexible imports** - Works with both imported images and URL strings
+### Features
+
+- **Automatic rounded corners** with consistent styling
+- **Caption support** displayed below images
+- **Works with local imports and remote URLs**
+- **Responsive sizing** with full-width display
+- **Optional custom classes** for additional styling
 
 ### Usage
+
+Import images from your content folder and use the component:
 
 ```jsx
 import ContentImage from "@components/ContentImage.astro";
@@ -59,7 +156,7 @@ import myPhoto from "./my-photo.jpg";
 <ContentImage src={myPhoto} alt="Description of image" caption="Optional caption text" />;
 ```
 
-For remote images, you'll need to specify width and height:
+For remote images, specify width and height:
 
 ```jsx
 <ContentImage
@@ -71,9 +168,9 @@ For remote images, you'll need to specify width and height:
 />
 ```
 
-### ContentImage Example
+### Examples
 
-Here's the ContentImage component in action with an imported image and caption:
+Local image with caption:
 
 <ContentImage
   src={computerPhoto}
@@ -81,7 +178,7 @@ Here's the ContentImage component in action with an imported image and caption:
   caption="The front face of my computer"
 />
 
-Here is a an image that is loaded from a URL:
+Remote image with caption:
 
 <ContentImage
   src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -91,16 +188,182 @@ Here is a an image that is loaded from a URL:
   caption="Image from external source"
 />
 
-The component automatically handles styling, adds rounded corners, and displays the caption in a consistent format below the image.
+## New ContentPreview Component
+
+Created a redesigned content preview component using Solid.js for displaying blog posts and projects. I was inspired by [Astro-Pure](https://astro-pure.js.org/) usage of similar component.
+
+### Features
+
+- **Hero image support** with gradient overlay
+- **Reading time indicator** with book icon
+- **Tag pills** for categorization
+- **Hover animations** with smooth transitions
+- **Responsive layout** that adapts to screen size
+- **Detailed and compact views** via `detailed` prop
+
+### Component Locations
+
+- `src/components/ContentPreview.tsx` - Solid.js version (interactive)
+
+### Usage
+
+The component is used throughout the site for displaying content previews:
+
+```jsx
+import ContentPreview from "@components/ContentPreview";
+
+// Display a blog post preview
+<ContentPreview entry={post} pill={false} />;
+
+// Display with detailed view (used on search page)
+<ContentPreview entry={result} pill={true} detailed={true} />;
+```
+
+The old `ArrowCard.tsx` from _Astro-Sphere_ has been removed in favor of this new implementation.
+
+## Hero Images for Blog Posts
+
+Blog posts now support hero images displayed at the top of articles.
+
+### Usage
+
+Add `heroImage` to your frontmatter:
+
+```yaml
+---
+title: "My Blog Post"
+heroImage:
+  src: "./my-image.jpg"
+  alt: "Description of image"
+---
+```
+
+The hero image will be displayed with automatic styling at the top of your blog post.
+
+## Developer Experience Enhancements
+
+### ESLint Configuration
+
+Added comprehensive ESLint setup with proper TypeScript and Astro support in `eslint.config.mjs`:
+
+- TypeScript and TSX support for Solid.js components
+- Astro plugin with accessibility rules
+- Prettier integration
+- Custom rules for project-specific needs
+
+Run linting:
+
+```bash
+npm run lint       # Check for issues
+npm run lint:fix   # Auto-fix issues
+```
+
+### Prettier Integration
+
+Configured Prettier for consistent code formatting:
+
+- Auto-format on save (VS Code)
+- Astro-specific formatting plugin
+- Tailwind class sorting plugin
+- Consistent formatting across all file types
+
+Run formatting:
+
+```bash
+npm run format       # Check formatting
+npm run format:fix   # Auto-fix formatting
+```
+
+### AGENTS.md
+
+Added `AGENTS.md` file with guidelines for AI coding assistants, documenting:
+
+- Available npm scripts
+- Code style conventions
+- Project structure
+- Component patterns
+- Naming conventions
+
+This file helps AI assistants (like OpenCode) understand project conventions and generate appropriate code.
+
+### Node Version
+
+Added `.nvmrc` file to specify the required Node.js version for the project, ensuring consistency across development environments.
+
+## Typography Updates
+
+### New Fonts
+
+Added custom fonts for improved typography:
+
+- **Inter** (variable font) - Primary body text
+- **Satoshi** (Bold & Regular) - Headings and emphasis
+
+Font files are located in `public/fonts/` and loaded via the global CSS.
+
+## UI/UX Improvements
+
+### Navigation Changes
+
+- **Removed mobile drawer** - Navigation stays persistent on all screen sizes
+- **Removed site name from navbar** - Cleaner header design
+- **Enhanced "Back to" buttons** - Improved styling with hover effects
+- **Profile added to hero section** - Personalized homepage
+
+### Spacing and Layout
+
+- Updated vertical spacing throughout the site
+- Decreased gap between navbar and page titles
+- Refined container widths for home, projects, and blog pages
+- Enhanced hover states and transitions
+
+### Content Management
+
+- **Removed work page** - Including all work content and routes
+- **Removed contact section** - From homepage
+- **Removed website status banner** - Cleaner design
+- **Removed website stack display** - Simplified presentation
 
 ## Disabled Legal Pages
 
-The Terms and Privacy pages are currently disabled but preserved for future use. They've been disabled by:
+Legal pages (Terms and Privacy) are preserved but disabled for future use.
 
-- Adding `.disabled` extension to page route: `src/pages/legal/_[...slug].astro`
-- Using underscore prefix for content files (Astro convention): `_privacy.md` and `_terms.md`
-- Commenting out footer links in `src/components/Footer.astro`
+### How It Works
 
-**To re-enable:** Remove the underscore prefix from content files, and uncomment the legal links section in the footer (see comment in file for instructions).
+Pages are disabled using Astro's underscore convention:
 
-**Note:** Following Astro documentation best practices, files prefixed with an underscore (`_`) are excluded from routing and builds, making this the standard approach for disabling pages.
+- Page route: `src/pages/legal/_[...slug].astro` (underscore prefix)
+- Content files: `_privacy.md` and `_terms.md` (underscore prefix)
+- Footer links are commented out in `src/components/Footer.astro`
+
+### Re-enabling Legal Pages
+
+To re-enable:
+
+1. Remove underscore prefix from `src/pages/legal/_[...slug].astro`
+2. Remove underscore prefix from content files (`_privacy.md` → `privacy.md`)
+3. Uncomment the legal links section in `src/components/Footer.astro`
+
+**Note:** Files prefixed with underscore (`_`) are excluded from routing and builds per Astro conventions.
+
+## Configuration Changes
+
+### Package Updates
+
+- **Upgraded to Astro 5.x** - Latest features and improvements
+- **Updated all dependencies** - Security patches and new features
+- **Package renamed** - From "astro-sphere" to "personal-site"
+- **Site URL updated** - Configured for GitHub Pages deployment
+
+### TypeScript Configuration
+
+Enhanced TypeScript configuration with strict mode and improved type checking for better development experience.
+
+## Additional Resources
+
+- [Astro Documentation](https://docs.astro.build/)
+- [Expressive Code Documentation](https://expressive-code.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Solid.js](https://www.solidjs.com/)
+
+For more information about the base theme, visit the [Astro Sphere repository](https://github.com/markhorn-dev/astro-sphere).
