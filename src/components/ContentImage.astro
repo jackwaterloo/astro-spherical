@@ -17,7 +17,7 @@ const { src, alt, class: className, caption, width, height } = Astro.props;
 const imageProps = {
   src,
   alt,
-  class: cn("w-full rounded-lg", className),
+  class: cn("max-w-full max-h-[625px] h-auto w-auto rounded-lg", className),
   ...(width && { width }),
   ...(height && { height }),
 };

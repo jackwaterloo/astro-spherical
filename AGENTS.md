@@ -2,7 +2,7 @@
 
 ## Commands
 
-- **Dev**: `npm run dev` | **Build**: `npm run build` (runs type check + build) | **Lint**: `npm run lint:fix` | **Format**: `npm run format:fix`
+- **Build**: `npm run build` (runs type check + build) | **Lint**: `npm run lint:fix` | **Format**: `npm run format:fix`
 - **No test suite configured**
 
 ## Code Style
