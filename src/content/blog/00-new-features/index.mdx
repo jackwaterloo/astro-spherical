@@ -20,6 +20,26 @@ import computerPhoto from "./271393489_7450028155022821_6941861915229160164_n-76
 
 This document outlines all the custom features and enhancements added to the [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) theme. These modifications are designed for developers forking this template.
 
+## Table of Contents for Blog Posts and Projects
+
+Blog posts and project pages now include an automatic table of contents generated from your article headings.
+
+### Features
+
+- **Auto-generated** from `##` and `###` headings
+- **Responsive layout** (inline collapsible TOC on small screens, sidebar TOC on larger screens)
+- **Active section highlighting** as you scroll
+
+### Usage
+
+By default, TOC is enabled. Disable it per entry with frontmatter:
+
+```yaml
+---
+toc: false
+---
+```
+
 ## Enhanced Code Blocks with Expressive Code
 
 Replaced the default code highlighting with [Astro Expressive Code](https://expressive-code.com/) for a significantly improved code display experience.
@@ -87,6 +107,7 @@ Added a custom `ContentImage` component (`src/components/ContentImage.astro`) fo
 - **Caption support** displayed below images
 - **Works with local imports and remote URLs**
 - **Responsive sizing** with full-width display
+- **Maximum image height** capped to prevent oversized images
 - **Optional custom classes** for additional styling
 
 ### Usage
