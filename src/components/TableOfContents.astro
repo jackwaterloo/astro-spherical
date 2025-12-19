@@ -1,0 +1,133 @@
+---
+import { cn } from "@lib/utils";
+
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+type TocItem = {
+  slug: string;
+  text: string;
+  children: Array<{ slug: string; text: string }>;
+};
+
+type Props = {
+  headings: Heading[];
+  class?: string;
+  variant?: "sidebar" | "inline";
+  showTitle?: boolean;
+  title?: string;
+  activeTracking?: boolean;
+};
+
+const {
+  headings,
+  class: className,
+  variant = "sidebar",
+  showTitle = true,
+  title = "Table of Contents",
+  activeTracking = true,
+} = Astro.props;
+
+const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasH2 = filtered.some((h) => h.depth === 2);
+
+const normalized = hasH2 ? filtered : filtered.map((h) => (h.depth === 3 ? { ...h, depth: 2 } : h));
+
+const items: TocItem[] = [];
+let current: TocItem | null = null;
+
+for (const heading of normalized) {
+  if (heading.depth === 2) {
+    current = { slug: heading.slug, text: heading.text, children: [] };
+    items.push(current);
+    continue;
+  }
+
+  if (heading.depth === 3 && current) {
+    current.children.push({ slug: heading.slug, text: heading.text });
+  }
+}
+
+const hasToc = items.length > 0;
+
+const isInline = variant === "inline";
+
+const navClasses = cn(
+  "flex flex-col",
+  isInline ? "bg-transparent" : "max-h-[calc(100vh-10rem)]",
+  isInline
+    ? "rounded-none border-0 p-0"
+    : "rounded-lg border border-black/15 p-3 dark:border-white/20",
+  "bg-black/0 dark:bg-white/0",
+  "[&_a[aria-current=location]]:font-semibold",
+  "[&_a[aria-current=location]]:text-black dark:[&_a[aria-current=location]]:text-white",
+  "[&_a[aria-current=location]]:bg-black/5 dark:[&_a[aria-current=location]]:bg-white/10",
+  className,
+);
+
+const scrollClasses = cn(
+  showTitle ? "mt-3" : "mt-0",
+  isInline ? "overflow-visible pr-0" : "min-h-0 overflow-y-auto overscroll-contain py-1 pr-1",
+);
+
+const topListClasses = cn(isInline ? "space-y-1" : "space-y-2", "text-sm");
+const childListClasses = cn("pl-4", isInline ? "mt-1 space-y-1" : "mt-2 space-y-1");
+
+const linkBase = cn(
+  "toc-link block truncate rounded-md px-1 transition-colors duration-200 ease-in-out",
+  isInline ? "py-0.5" : "py-1",
+);
+---
+
+{
+  hasToc && (
+    <nav
+      data-toc={activeTracking ? true : undefined}
+      aria-label="Table of Contents"
+      class={navClasses}
+    >
+      {showTitle && <div class="text-sm font-semibold text-black dark:text-white">{title}</div>}
+
+      <div data-toc-scroll={activeTracking && !isInline ? true : undefined} class={scrollClasses}>
+        <ol class={topListClasses}>
+          {items.map((item) => (
+            <li>
+              <a
+                href={`#${item.slug}`}
+                class={cn(
+                  linkBase,
+                  "text-current hover:text-black hover:dark:text-white",
+                  "hover:bg-black/5 hover:dark:bg-white/10",
+                )}
+              >
+                {item.text}
+              </a>
+
+              {item.children.length > 0 && (
+                <ol class={childListClasses}>
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={`#${child.slug}`}
+                        class={cn(
+                          linkBase,
+                          "text-current/85 hover:text-black hover:dark:text-white",
+                          "hover:bg-black/5 hover:dark:bg-white/10",
+                        )}
+                      >
+                        {child.text}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  )
+}

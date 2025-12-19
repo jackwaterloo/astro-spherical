@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
+import TableOfContents from "@components/TableOfContents.astro";
 
 type Props = {
   entry: CollectionEntry<"blog"> | CollectionEntry<"projects">;
@@ -7,8 +8,23 @@ type Props = {
 
 // Get the requested entry
 const { entry } = Astro.props;
-const { collection } = entry;
-const { Content } = await entry.render();
+const { collection, data } = entry;
+const { Content, headings } = await entry.render();
+
+const tocEnabled = data.toc !== false;
+
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasH2 = tocHeadings.some((h) => h.depth === 2);
+const hasAnyTocHeadings = tocHeadings.length > 0;
+
+const tocHeadingsInline = hasH2 ? tocHeadings.filter((h) => h.depth === 2) : tocHeadings;
+const shouldShowToc = tocEnabled && hasAnyTocHeadings;
+
+const wrapperClasses = shouldShowToc
+  ? "toc:grid toc:grid-cols-[minmax(0,785px)_18rem] toc:justify-center toc:gap-x-8 toc:pb-10"
+  : "toc:pb-10";
+
+const articleClasses = shouldShowToc ? "min-w-0 !pb-0" : "min-w-0 !pb-0 mx-auto max-w-[56rem]";
 
 // Get the next and prev entries (modulo to wrap index)
 const items = (await getCollection(collection))
@@ -20,10 +36,57 @@ const next = items[(index + 1) % items.length];
 ---
 
 <div>
-  <article>
-    <Content />
-  </article>
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+  <div class={wrapperClasses}>
+    <article class={articleClasses}>
+      {
+        shouldShowToc && (
+          <div class="mx-auto mb-5 mt-1 max-w-[500px] rounded-lg border border-black/15 bg-black/5 p-4 dark:border-white/20 dark:bg-white/5 toc:hidden">
+            <details class="group">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-3 py-1 text-sm font-semibold text-black dark:text-white [&::-webkit-details-marker]:hidden">
+                <span>Table of Contents</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="transition-transform duration-200 ease-in-out group-open:rotate-180"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </summary>
+
+              <div class="mt-2">
+                <TableOfContents
+                  headings={tocHeadingsInline}
+                  variant="inline"
+                  showTitle={false}
+                  activeTracking={false}
+                />
+              </div>
+            </details>
+          </div>
+        )
+      }
+      <Content />
+    </article>
+
+    {
+      shouldShowToc && (
+        <aside class="hidden w-[18rem] min-w-[18rem] max-w-[18rem] toc:block">
+          <div class="sticky top-32">
+            <TableOfContents headings={tocHeadings} />
+          </div>
+        </aside>
+      )
+    }
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 toc:mx-auto toc:mt-0 toc:max-w-[785px]">
     <a
       href={`/${prev.collection}/${prev.slug}`}
       class="blend group flex items-center gap-3 rounded-lg border border-black/15 p-4 hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"

@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        toc: "950px",
         xs: "430px",
       },
       fontFamily: {
