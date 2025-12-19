@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  html {
+    --toc-underline: rgba(0, 0, 0, 0.18);
+    --toc-underline-shadow: rgba(0, 0, 0, 0.32);
+  }
+
+  html.dark {
+    --toc-underline: rgba(255, 255, 255, 0.16);
+    --toc-underline-shadow: rgba(255, 255, 255, 0.3);
+  }
+
+  .toc-title-underline {
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .toc-title-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--toc-underline) 12%,
+      var(--toc-underline) 88%,
+      transparent
+    );
+    box-shadow: 0 8px 12px -10px var(--toc-underline-shadow);
+    pointer-events: none;
+  }
+}
+
 @layer base {
   @font-face {
     font-family: "Inter";

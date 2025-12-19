@@ -89,7 +89,16 @@ const linkBase = cn(
       aria-label="Table of Contents"
       class={navClasses}
     >
-      {showTitle && <div class="text-sm font-semibold text-black dark:text-white">{title}</div>}
+      {showTitle && (
+        <div
+          class={cn(
+            "toc-title-underline text-sm font-semibold text-black dark:text-white",
+            !isInline && "text-center",
+          )}
+        >
+          {title}
+        </div>
+      )}
 
       <div data-toc-scroll={activeTracking && !isInline ? true : undefined} class={scrollClasses}>
         <ol class={topListClasses}>
