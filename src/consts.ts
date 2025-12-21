@@ -2,14 +2,14 @@ import type { Site, Page, Links, Socials } from "@types";
 
 // Global
 export const SITE: Site = {
-  TITLE: "Jack's Site",
-  DESCRIPTION: "My personal site for my blog and projects",
-  AUTHOR: "Jack Waterloo",
+  TITLE: "Astro Spherical",
+  DESCRIPTION: "This is a blog and portfolio template site",
+  AUTHOR: "John Doe",
 };
 
 // Profile
 export const PROFILE = {
-  LOCATION: "Chicago, IL",
+  LOCATION: "San Francisco, CA",
 };
 
 // Blog Page
@@ -51,19 +51,19 @@ export const SOCIALS: Socials = [
   {
     NAME: "Email",
     ICON: "email",
-    TEXT: "jack.waterloo77@gmail.com",
-    HREF: "mailto:jack.waterloo77@gmail.com",
+    TEXT: "johndoe@example.com",
+    HREF: "mailto:johndoe@example.com",
   },
   {
     NAME: "Github",
     ICON: "github",
-    TEXT: "jackwaterloo",
-    HREF: "https://github.com/jackwaterloo",
+    TEXT: "johndoe",
+    HREF: "https://github.com/johndoe",
   },
   {
     NAME: "LinkedIn",
     ICON: "linkedin",
-    TEXT: "jackwaterloo",
-    HREF: "https://www.linkedin.com/in/jackwaterloo/",
+    TEXT: "johndoe",
+    HREF: "https://www.linkedin.com/in/johndoe/",
   },
 ];
