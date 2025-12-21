@@ -4,6 +4,19 @@ This is an astro template meant to display blog posts and projects.
 
 Based off [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) - a static, minimalist, lightweight, lightning fast theme built primarily with Astro, Tailwind and TypeScript, with a small amount of SolidJS for stateful components.
 
+## 🚀 Major Additions
+
+This fork includes significant enhancements:
+
+- **Enhanced Code Blocks** - [Expressive Code](https://expressive-code.com/) with copy-to-clipboard, line numbers, and terminal frames
+- **Table of Contents** - Auto-generated TOC for blog posts and projects with active section highlighting
+- **Hero Images** - Support for hero images in blog posts and content previews
+- **ContentImage Component** - Consistent image styling with captions for MDX content
+- **Redesigned Content Previews** - Modern card design with hover animations and reading time
+- **Developer Experience** - ESLint, Prettier, and AI agent guidelines (AGENTS.md)
+
+For a comprehensive list of all features and usage instructions, see the [New Features blog post](src/content/blog/00-new-features/index.mdx).
+
 ## 📋 Features
 
 - ✅ 100/100 Lighthouse performance
